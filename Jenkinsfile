@@ -1,17 +1,23 @@
 pipeline {
-    stage 'Build'
+    agent any
+    tools { 
+        maven 'Maven 3.3.9' 
+        jdk 'jdk8' 
+    }
+    stages {
+        stage ('Initialize') {
+            steps {
+                bat '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                ''' 
+            }
+        }
 
-node {
-  // Checkout
-  checkout scm
-
-  // install required bundles
-  sh 'bundle install'
-
-  // build and run tests with coverage
-  sh 'bundle exec rake build spec'
-
-  // Archive the built artifacts
-  archive (includes: 'pkg/*.gem')
-}
+        stage ('Build') {
+            steps {
+                echo 'This is a minimal pipeline.'
+            }
+        }
+    }
 }
