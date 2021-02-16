@@ -1,6 +1,6 @@
 pipeline {
     agent any
-	stages {
+	
 		stage('Build')
 
 		node {
@@ -16,5 +16,5 @@ pipeline {
 				// Archive the built artifacts
 				archive (includes: 'pkg/*.gem')
 			}
-	}
+	
 }
